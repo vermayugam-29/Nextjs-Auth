@@ -14,13 +14,15 @@ const mailSender = async ({ email, emailType, userId }: credenntials) => {
     try {
 
         const hashedToken = await bcrypt.hash(userId.toString(), 10);
+        const date : Date = new Date(Date.now() + 60 * 60 * 1000 );
+
 
         if(emailType === 'VERIFY') {
             await User.findByIdAndUpdate(
                 {_id : userId} ,
                 {
                     verifyEmailToken : hashedToken ,
-                    verifyEmailTokenExpiry : Date.now() + 60 * 60 * 1000 //1 hour
+                    verifyEmailTokenExpiry : date//1 hour
                 },
                 {new : true}
             )
@@ -29,7 +31,7 @@ const mailSender = async ({ email, emailType, userId }: credenntials) => {
                 {_id : userId} ,
                 {
                     forgotPasswordToken : hashedToken ,
-                    forgotPasswordTokenExpiry : Date.now() + 60 * 60 * 1000 //1 hour
+                    forgotPasswordTokenExpiry : date //1 hour
                 },
                 {new : true}
             )

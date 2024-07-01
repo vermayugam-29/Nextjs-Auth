@@ -25,6 +25,7 @@ export const verifyEmail = async(token : any , setLoading : any , router : any) 
     setLoading(true);
     try {
         const response = await axios.post('/api/users/verifyEmail' , {token});
+     
         if (!response.data.success) {
             throw new Error(response.data.message);
         }
@@ -61,7 +62,7 @@ export const loginForm = async(info : any , setLoading : any , router : any) => 
     setLoading(false);
 }
 
-export const getUserDetails = async(setData : any , setLoading : any , router : any) => {
+export const getUserDetails = async(setData : any , setLoading : any) => {
     setLoading(true);
     try {
         const response = await axios.get('/api/users/details');
@@ -69,8 +70,7 @@ export const getUserDetails = async(setData : any , setLoading : any , router : 
             throw new Error(response.data.message);
         }
         toast.success('User details fetced successfully');
-        router.push(`/profile/${response.data.data._id}`);
-        setData(response.data.data);
+        setData(response.data.data._id);
     } catch (error : any) {
         if(error.response && error.response.data && error.response.data.message){
             toast.error(`${error.response.data.message}`)

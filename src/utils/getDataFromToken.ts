@@ -11,7 +11,8 @@ interface TOKEN {
 export const getData = (req : NextRequest) => {
     try {
         const token = req.cookies.get('token')?.value || '';
-        const decodedToken : TOKEN = jwt.verify(token , process.env.JWT_SECRET!) as TOKEN;
+        const decodedToken : any = jwt.verify(token , process.env.JWT_SECRET!);
+        console.log(decodedToken)
         return decodedToken.id;
     } catch (error : any) {
         throw new Error(error.message);

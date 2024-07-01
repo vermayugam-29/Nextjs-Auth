@@ -17,7 +17,6 @@ const VerifyEmail = () => {
     useEffect(() => {
         const urlToken = window.location.search.split("=")[1];
         setToken(urlToken || "");
-        console.log(urlToken)
     } , [])
 
     

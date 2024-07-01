@@ -31,6 +31,14 @@ const loginPage = () => {
         loginForm(info, setLoading, router);
     }
 
+    if(loading) {
+        return (
+            <div>
+                loading....
+            </div>
+        )
+    }
+
     return (
         <div className='flex flex-col justify-center items-center min-w-screen min-h-screen'>
             <form className='flex flex-col justify-center items-center gap-8'

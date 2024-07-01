@@ -10,15 +10,20 @@ const Profile = () => {
 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [hasBeenCalled , setCalled] = useState(false);
 
 
     useEffect(() => {
-        if (!data) {
-            getUserDetails(setData,setLoading,router);
+        if(!hasBeenCalled){
+            if(data === null) {
+                getUserDetails(setData,setLoading);
+                setCalled(true);
+            }
+            setCalled(true);
         }
-    }, [data])
+    }, [])
 
-    if(loading) {
+    if(loading && data === null) {
         return (
             <div>
                 loading....
@@ -28,8 +33,12 @@ const Profile = () => {
 
     return (
         <div>
-            <h1>data</h1>
-            <Link href={`/profile/${data}`} >Visit User</Link>
+            {
+                data !== null && 
+                    <Link href={`/profile/${data}`}>
+                    Visit user
+                    </Link>
+            }
             <button onClick={() => logOut(setData , setLoading , router)}>LogOut</button>
         </div>
     )
